@@ -23,6 +23,13 @@
 #include "TallyBase.h"
 #include "AddTallyAction.h"
 
+#include "libmesh/ignore_warnings.h"
+#if defined(__GNUC__) && !defined(__INTEL_COMPILER) && !defined(__clang__)
+// GCC > 4.5 supports diagnostic pragmas with push/pop
+#if (__GNUC__ > 4) || (__GNUC__ == 4 && __GNUC_MINOR__ > 5)
+#pragma GCC diagnostic ignored "-Wsign-compare"
+#endif
+#endif
 #include "openmc/constants.h"
 #include "openmc/cross_sections.h"
 #include "openmc/dagmc.h"
@@ -38,6 +45,7 @@
 #include "openmc/volume_calc.h"
 #include "openmc/universe.h"
 #include "xtensor/xarray.hpp"
+#include "libmesh/restore_warnings.h"
 
 registerMooseObject("CardinalApp", OpenMCCellAverageProblem);
 
@@ -344,7 +352,7 @@ OpenMCCellAverageProblem::OpenMCCellAverageProblem(const InputParameters & param
       _cell_level = getParam<unsigned int>("cell_level");
       selected_param = "cell_level";
 
-      if (_cell_level >= openmc::model::n_coord_levels)
+      if (_cell_level >= static_cast<unsigned int>(openmc::model::n_coord_levels))
         paramError(selected_param,
                    "Coordinate level for finding cells cannot be greater than total number "
                    "of coordinate levels: " +
@@ -1610,7 +1618,7 @@ unsigned int
 OpenMCCellAverageProblem::getCellLevel(const Point & c) const
 {
   unsigned int level = _cell_level;
-  if (_cell_level > _particle.n_coord() - 1)
+  if (_cell_level > static_cast<unsigned int>(_particle.n_coord() - 1))
   {
     if (isParamValid("lowest_cell_level"))
       level = _particle.n_coord() - 1;
@@ -1650,7 +1658,6 @@ OpenMCCellAverageProblem::mapElemsToCells()
 
     local_elem++;
 
-    auto id = elem->subdomain_id();
     const Point & c = elem->vertex_average();
     Real element_volume = elem->volume();
 
@@ -2825,7 +2832,7 @@ OpenMCCellAverageProblem::updateMaterials()
     mat->set_name(ids_to_names[mat->id()] + "_0");
 
   // Then, create the copies of each material
-  int n_mats = openmc::model::materials.size();
+  unsigned int n_mats = openmc::model::materials.size();
   for (unsigned int n = 0; n < n_mats; ++n)
   {
     auto name = ids_to_names[openmc::model::materials[n]->id()];

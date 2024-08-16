@@ -21,7 +21,9 @@
 #include "TallyBase.h"
 #include "OpenMCCellAverageProblem.h"
 
+#include "libmesh/ignore_warnings.h"
 #include "openmc/tallies/filter_mesh.h"
+#include "libmesh/restore_warnings.h"
 
 class MeshTally : public TallyBase
 {

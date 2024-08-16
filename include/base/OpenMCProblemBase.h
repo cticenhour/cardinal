@@ -27,6 +27,7 @@
 #include "OpenMCTallyNuclides.h"
 
 #include "mpi.h"
+#include "libmesh/ignore_warnings.h"
 #include "openmc/bank.h"
 #include "openmc/capi.h"
 #include "openmc/cell.h"
@@ -42,6 +43,7 @@
 #include "openmc/tallies/tally.h"
 #include "openmc/tallies/filter_cell_instance.h"
 #include "xtensor/xview.hpp"
+#include "libmesh/restore_warnings.h"
 
 /**
  * Base class for all MOOSE wrappings of OpenMC

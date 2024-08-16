@@ -326,7 +326,7 @@ void
 TallyBase::applyTriggersToLocalTally(openmc::Tally * tally)
 {
   if (_tally_trigger)
-    for (int score = 0; score < _tally_score.size(); ++score)
+    for (int score = 0; score < static_cast<int>(_tally_score.size()); ++score)
       tally->triggers_.push_back({_openmc_problem.triggerMetric((*_tally_trigger)[score]),
                                   _tally_trigger_threshold[score],
                                   false,

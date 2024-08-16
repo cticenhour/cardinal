@@ -21,8 +21,10 @@
 #include "MooseObject.h"
 #include "CardinalEnums.h"
 
+#include "libmesh/ignore_warnings.h"
 #include "openmc/tallies/tally.h"
 #include "xtensor/xview.hpp"
+#include "libmesh/restore_warnings.h"
 
 /// Forward declarations.
 class OpenMCCellAverageProblem;

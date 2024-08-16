@@ -38,7 +38,7 @@ public:
    */
   virtual moab::ErrorCode check(const moab::ErrorCode input) const;
 
-  std::string materialName(const unsigned int & block, const unsigned int & density, const unsigned int & temp) const;
+  std::string materialName(const unsigned int & block, const unsigned int & density, const unsigned int & /* temp */) const;
 
   /// Perform the skinning operation
   virtual void update();
