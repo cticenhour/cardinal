@@ -19,7 +19,10 @@
 #ifdef ENABLE_OPENMC_COUPLING
 
 #include "OpenMCCellAverageProblem.h"
+#include "CardinalAppTypes.h"
+#include "UserErrorChecking.h"
 #include "DelimitedFileReader.h"
+#include "VariadicTable.h"
 #include "TallyBase.h"
 #include "AddTallyAction.h"
 

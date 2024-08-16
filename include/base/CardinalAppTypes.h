@@ -22,4 +22,5 @@
 
 #ifdef ENABLE_OPENMC_COUPLING
 extern const ExecFlagType EXEC_SEND_OPENMC_DENSITIES;
+extern const ExecFlagType EXEC_SEND_OPENMC_TALLY_NUCLIDES;
 #endif
